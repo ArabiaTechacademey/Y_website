@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>قراءة الكتاب — مكتب صفر</title>
-<link rel="stylesheet" href="static/css/style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -34,6 +34,11 @@
     `;
   } else {
     document.title = `${book.title} — مكتب صفر`;
+
+    // بناء روابط جوجل درايف من الـ ID المخزّن في بيانات الكتاب
+    const previewUrl = `https://drive.google.com/file/d/${book.driveId}/preview`;
+    const downloadUrl = `https://drive.google.com/uc?export=download&id=${book.driveId}`;
+
     app.innerHTML = `
       <header class="reader-header">
         <a class="back-link" href="index.html">
@@ -51,10 +56,10 @@
             <div class="subtitle">${book.subtitle} — يوسف طلب</div>
             <p class="desc">${book.description}</p>
             <div class="reader-actions">
-              <a class="btn btn-primary" href="${book.pdf}" download>
+              <a class="btn btn-primary" href="${downloadUrl}" target="_blank" rel="noopener">
                 تحميل الكتاب
               </a>
-              <a class="btn btn-ghost" href="${book.pdf}" target="_blank" rel="noopener">
+              <a class="btn btn-ghost" href="${previewUrl}" target="_blank" rel="noopener">
                 فتح في تبويب جديد
               </a>
             </div>
@@ -66,7 +71,7 @@
         <div class="frame-bar">
           <span class="dot"></span> قارئ الكتاب
         </div>
-        <iframe src="${book.pdf}" title="قراءة ${book.title}"></iframe>
+        <iframe src="${previewUrl}" title="قراءة ${book.title}"></iframe>
       </div>
     `;
   }
