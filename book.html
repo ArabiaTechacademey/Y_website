@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قراءة الكتاب — مكتب صفر</title>
+<link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<div id="app"></div>
+
+<script src="static/js/books-data.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const book = BOOKS.find(b => b.id === id);
+  const app = document.getElementById('app');
+
+  if (!book) {
+    app.innerHTML = `
+      <header class="reader-header">
+        <a class="back-link" href="index.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 6 L9 12 L15 18"/>
+          </svg>
+          العودة إلى المكتبة
+        </a>
+      </header>
+      <div class="not-found">
+        <h1>هذا الكتاب غير موجود</h1>
+        <p>تأكد من الرابط أو عد إلى المكتبة لاختيار كتاب آخر.</p>
+      </div>
+    `;
+  } else {
+    document.title = `${book.title} — مكتب صفر`;
+    app.innerHTML = `
+      <header class="reader-header">
+        <a class="back-link" href="index.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 6 L9 12 L15 18"/>
+          </svg>
+          العودة إلى المكتبة
+        </a>
+        <div class="reader-meta">
+          <div class="cover-mini">
+            <img src="${book.cover}" alt="غلاف ${book.title}">
+          </div>
+          <div class="info">
+            <h1>${book.title}</h1>
+            <div class="subtitle">${book.subtitle} — يوسف طلب</div>
+            <p class="desc">${book.description}</p>
+            <div class="reader-actions">
+              <a class="btn btn-primary" href="${book.pdf}" download>
+                تحميل الكتاب
+              </a>
+              <a class="btn btn-ghost" href="${book.pdf}" target="_blank" rel="noopener">
+                فتح في تبويب جديد
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="pdf-frame-wrap">
+        <div class="frame-bar">
+          <span class="dot"></span> قارئ الكتاب
+        </div>
+        <iframe src="${book.pdf}" title="قراءة ${book.title}"></iframe>
+      </div>
+    `;
+  }
+</script>
+</body>
+</html>

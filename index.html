@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مكتب صفر — يوسف طلب</title>
+<link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <img src="logo.png" alt="" width="20%">
+    <div>
+      مكتب صفر
+      <small>دار يوسف طلب للحكي</small>
+    </div>
+  </div>
+  <nav>
+    <a href="#library">المكتبة</a>
+    <a href="#about">عن المؤلف</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">حكايات محفورة في الذاكرة</div>
+  <h1>مكتب صفر</h1>
+  <p class="lead">
+    مساحة لقراءة أعمال الكاتب يوسف طلب — روايات وحكايات تستلهم روح مصر القديمة
+    وتُروى بلغة اليوم. اختر كتابًا وابدأ القراءة مباشرة من الموقع.
+  </p>
+  <div class="hero-divider">
+    <div class="line"></div>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+      <circle cx="12" cy="12" r="8"/>
+      <circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/>
+    </svg>
+    <div class="line"></div>
+  </div>
+</section>
+
+<div class="section-title" id="library">
+  <h2>المكتبة</h2>
+  <div class="rule"></div>
+</div>
+
+<main>
+  <div class="book-grid" id="bookGrid"></div>
+</main>
+
+<footer class="site-footer" id="about">
+  <div class="brand-line">مكتب صفر</div>
+  <div>جميع الأعمال المعروضة من تأليف يوسف طلب.</div>
+</footer>
+
+<script src="static/js/books-data.js"></script>
+<script>
+  const grid = document.getElementById('bookGrid');
+  BOOKS.forEach(book => {
+    const card = document.createElement('a');
+    card.className = 'book-card';
+    card.href = `book.html?id=${encodeURIComponent(book.id)}`;
+    card.innerHTML = `
+      <div class="cover-wrap">
+        <img src="${book.cover}" alt="غلاف ${book.title}" loading="lazy">
+        <span class="read-badge">اقرأ الآن ↞</span>
+      </div>
+      <h3>${book.title}</h3>
+      <div class="subtitle">${book.subtitle}</div>
+      <p class="desc">${book.description}</p>
+    `;
+    grid.appendChild(card);
+  });
+</script>
+</body>
+</html>
